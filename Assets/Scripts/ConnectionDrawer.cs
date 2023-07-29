@@ -73,11 +73,17 @@ public class ConnectionDrawer : MonoBehaviour
 
     protected void Reset()
     {
-        leftConnection.DisableHighlight();
-        leftConnection = null;
+        if(leftConnection != null)
+        {
+            leftConnection.DisableHighlight();
+            leftConnection = null;
+        }
 
-        rightConnection.DisableHighlight();
-        rightConnection = null;
+        if(rightConnection != null)
+        {
+            rightConnection.DisableHighlight();
+            rightConnection = null;
+        }
 
         lineRenderer.enabled = false;
     }

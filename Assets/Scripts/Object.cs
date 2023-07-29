@@ -38,6 +38,9 @@ public class Object : MonoBehaviour
     protected string interactiveTag;
 
     [SerializeField]
+    Vector2 interactPivot;
+
+    [SerializeField]
     protected List<TaggableEvents> interactionEvents;
 
     [SerializeField]
@@ -59,6 +62,16 @@ public class Object : MonoBehaviour
         {
             return overlappingObject == null && state == ObjectState.PickedUp;
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Vector3 gizmoLocation = transform.position;
+        gizmoLocation.x += interactPivot.x;
+        gizmoLocation.y += interactPivot.y;
+
+        Gizmos.DrawWireSphere(gizmoLocation, 5);
     }
 
     private void Start()
@@ -85,7 +98,7 @@ public class Object : MonoBehaviour
         if(state == ObjectState.PickedUp)
         {
             Vector3 mouse2World = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = new Vector3(mouse2World.x, mouse2World.y, originalZ);
+            transform.position = new Vector3(mouse2World.x - interactPivot.x, mouse2World.y - interactPivot.y, originalZ);
         }
     }
 
