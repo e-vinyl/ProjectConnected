@@ -34,7 +34,7 @@ Transform:
   m_Children:
   - {fileID: 2740204866793031989}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &7279455874568876474
 BoxCollider2D:
@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffaec691e44d20b428ab104a819d946f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedSound: {fileID: 8300000, guid: 45c6550192c708e458b7b28247b74012, type: 3}
   highlightRender: {fileID: 1062598700532009325}
   interactiveTag: Sugar
   interactPivot: {x: 14, y: 0}
@@ -250,7 +251,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: e9b6d36b22bb15f4983d3ca52ae804cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

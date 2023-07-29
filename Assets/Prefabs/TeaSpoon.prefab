@@ -79,7 +79,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 12, y: 10}
+  m_Size: {x: 16, y: 15}
   m_EdgeRadius: 0
 --- !u!212 &6255196702476435732
 SpriteRenderer:
@@ -145,9 +145,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffaec691e44d20b428ab104a819d946f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedSound: {fileID: 8300000, guid: 45c6550192c708e458b7b28247b74012, type: 3}
   highlightRender: {fileID: 978159000290086979}
   interactiveTag: Spoon
-  interactPivot: {x: -15, y: -10}
+  interactPivot: {x: -3, y: -3}
   interactionEvents: []
   linkEvents: []
   canPickup: 1
@@ -250,7 +251,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -4
   m_Sprite: {fileID: 21300000, guid: 905d68bbd2f87ad43b07aa55b32315a6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
