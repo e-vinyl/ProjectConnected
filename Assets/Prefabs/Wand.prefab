@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6881827104969759832}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -35.7956, y: -27.892002, z: 25.009634}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -118,7 +118,6 @@ GameObject:
   - component: {fileID: 1635876528886654424}
   - component: {fileID: 4390015563119405371}
   - component: {fileID: 3851411431053239743}
-  - component: {fileID: 3715015297890209818}
   m_Layer: 0
   m_Name: Wand
   m_TagString: Untagged
@@ -260,6 +259,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cursor: {fileID: 3852183211937119505}
   magic: {fileID: 8300000, guid: 663c587245c83984896d0774f1304782, type: 3}
+  magicWrong: {fileID: 8300000, guid: 96fdab07f6003db4baa4b9b4d68e20ae, type: 3}
+  selectedSound: {fileID: 8300000, guid: 45c6550192c708e458b7b28247b74012, type: 3}
 --- !u!82 &3851411431053239743
 AudioSource:
   m_ObjectHideFlags: 0
@@ -356,15 +357,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3715015297890209818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6960224685173404120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de6f2d8d3a43de64187c5b9d9c7e464e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

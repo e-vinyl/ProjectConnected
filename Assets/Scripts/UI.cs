@@ -2,35 +2,87 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum CursorState
+public enum CursorState
 {
     None,
-    Pickup,
+    PickUp,
     Link
 }
 
 [RequireComponent(typeof(LineRenderer))]
-public class ConnectionDrawer : MonoBehaviour
+[RequireComponent(typeof(AudioSource))]
+public class UI : MonoBehaviour
 {
+    private static UI instance;
+
+    public static UI Instance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = GameObject.FindObjectOfType<UI>();
+            }
+
+            return instance;
+        }
+    }
+    
     protected LineRenderer lineRenderer;
+    
+    protected AudioSource source;
 
     protected Object leftConnection;
     protected Object rightConnection;
+    
+    protected CursorState cursorState;
+
+    public CursorState CursorState
+    {
+        get
+        {
+            return cursorState;
+        }
+
+        set
+        {
+            cursorState = value;
+            cursor.SetInteger("Type", (int)cursorState);
+        }
+    }
 
     [SerializeField]
     protected Animator cursor;
 
     [SerializeField]
     protected AudioClip magic;
+    
+    [SerializeField]
+    protected AudioClip magicWrong;
+
+    [SerializeField]
+    protected AudioClip selectedSound;
 
     private void Start()
     {
+        source = GetComponent<AudioSource>();
+        
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
         lineRenderer.positionCount = 2;
         lineRenderer.startColor = lineRenderer.endColor = Object.LinkHighlightColor;
 
         Cursor.visible = false;
+    }
+
+    public void PlaySelectedSound()
+    {
+        PlayAudio(selectedSound);
+    }
+
+    public void PlayAudio(AudioClip clip)
+    {
+        source.PlayOneShot(clip, 1f);
     }
 
     // Update is called once per frame
@@ -64,7 +116,7 @@ public class ConnectionDrawer : MonoBehaviour
         //Right Click Down
         if (Input.GetMouseButtonDown(1))
         {
-            cursor.SetInteger("Type", (int)CursorState.Link);
+            CursorState = CursorState.Link;
             leftConnection = GetObjectUnderMouse();
             if (leftConnection != null)
             {
@@ -77,8 +129,11 @@ public class ConnectionDrawer : MonoBehaviour
         {
             if(rightConnection != null)
             {
-                UIAudio.Instance.PlayAudio(magic);
-                rightConnection.Link(leftConnection);
+                
+                bool connectionSuccessful = rightConnection.Link(leftConnection);
+                
+                source.PlayOneShot(connectionSuccessful ? magic : magicWrong, 1f);
+                
                 rightConnection.DisableHighlight();
                 Reset();
             }
@@ -87,7 +142,7 @@ public class ConnectionDrawer : MonoBehaviour
                 Reset();
             }
 
-            cursor.SetInteger("Type", (int)CursorState.None);
+            CursorState = CursorState.None;
         }
     }
 
@@ -108,7 +163,7 @@ public class ConnectionDrawer : MonoBehaviour
         lineRenderer.enabled = false;
     }
 
-    Object GetObjectUnderMouse()
+    private Object GetObjectUnderMouse()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 

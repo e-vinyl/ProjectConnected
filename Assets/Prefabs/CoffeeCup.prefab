@@ -147,7 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffaec691e44d20b428ab104a819d946f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedSound: {fileID: 8300000, guid: 45c6550192c708e458b7b28247b74012, type: 3}
   highlightRender: {fileID: 8824855389360943903}
   interactiveTag: Coffee
   interactPivot: {x: 22, y: 12}
@@ -242,8 +241,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coffeePour: {fileID: 8300000, guid: 4f51910d3bae51848bd6d546433bb433, type: 3}
-  sugarPour: {fileID: 0}
-  coffeeStir: {fileID: 0}
+  sugarPour: {fileID: 8300000, guid: 50cb2e7a08c71f34bbe803fd169295a0, type: 3}
+  sugarPourInCoffee: {fileID: 8300000, guid: ba0353786b65b444ea7bb039ea4acc71, type: 3}
+  coffeeStir: {fileID: 8300000, guid: 4b223372e8fa4fd43a29a0de064a2c7d, type: 3}
   coffeeRenderer: {fileID: 8516754256631200486}
 --- !u!1 &4005688712412657919
 GameObject:

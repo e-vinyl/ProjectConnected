@@ -189,7 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffaec691e44d20b428ab104a819d946f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedSound: {fileID: 8300000, guid: 45c6550192c708e458b7b28247b74012, type: 3}
   highlightRender: {fileID: 331832735989645355}
   interactiveTag: Turntable
   interactPivot: {x: 0, y: 0}
@@ -307,7 +306,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a25bd7e7557750447ad041bdccc18879, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.216
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0

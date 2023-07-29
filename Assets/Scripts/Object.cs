@@ -39,9 +39,6 @@ public class Object : MonoBehaviour
     protected Object overlappingObject;
 
     [SerializeField]
-    protected AudioClip selectedSound;
-
-    [SerializeField]
     protected SpriteRenderer highlightRender;
 
     [SerializeField]
@@ -116,7 +113,10 @@ public class Object : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        UIAudio.Instance.PlayAudio(selectedSound);
+        if (UI.Instance.CursorState == CursorState.None)
+        {
+            UI.Instance.PlaySelectedSound();
+        }
     }
 
     private void OnMouseDrag()
@@ -132,6 +132,7 @@ public class Object : MonoBehaviour
     {
         if(canPickup)
         {
+            UI.Instance.CursorState = CursorState.PickUp;
             state = ObjectState.PickedUp;
 
             foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
@@ -153,6 +154,8 @@ public class Object : MonoBehaviour
         {
             ResetObject();
         }
+        
+        UI.Instance.CursorState = CursorState.None;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -163,7 +166,7 @@ public class Object : MonoBehaviour
             triggeredObject.CanInteract &&
             state == ObjectState.None)
         {
-            
+            UI.Instance.PlaySelectedSound();
             triggeredObject.OnOverlap(this);
             EnableHighlight();
         }
@@ -207,14 +210,17 @@ public class Object : MonoBehaviour
         }
     }
 
-    public void Link(Object other)
+    public bool Link(Object other)
     {
         TaggableEvents foundEvent = linkEvents.Find((x) => x.tag == other.interactiveTag);
 
         if (foundEvent != null)
         {
             foundEvent.interactiveEvent?.Invoke(other);
+            return true;
         }
+
+        return false;
     }
 
     public void EnableHighlight(bool magical = false)

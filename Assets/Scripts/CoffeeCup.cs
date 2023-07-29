@@ -16,6 +16,9 @@ public class CoffeeCup : MonoBehaviour
 
     [SerializeField]
     protected AudioClip sugarPour;
+    
+    [SerializeField]
+    protected AudioClip sugarPourInCoffee;
 
     [SerializeField]
     protected AudioClip coffeeStir;
@@ -35,7 +38,7 @@ public class CoffeeCup : MonoBehaviour
     {
         if(!hasCoffee)
         {
-            UIAudio.Instance.PlayAudio(coffeePour);
+            UI.Instance.PlayAudio(coffeePour);
             coffeeRenderer.enabled = true;
             hasCoffee = true;
         }
@@ -45,7 +48,7 @@ public class CoffeeCup : MonoBehaviour
     {
         if (!hasSugar)
         {
-            Debug.Log("Cup has sugar");
+            UI.Instance.PlayAudio(hasCoffee ? sugarPourInCoffee : sugarPour);
             hasSugar = true;
         }
     }
@@ -54,7 +57,7 @@ public class CoffeeCup : MonoBehaviour
     {
         if (hasSugar && hasCoffee && !isSpinning)
         {
-            Debug.Log("Coffee is spinning");
+            UI.Instance.PlayAudio(coffeeStir);
             isSpinning = true;
         }
     }
