@@ -26,8 +26,8 @@ public class TaggableEvents
 [RequireComponent(typeof(Rigidbody2D))]
 public class Object : MonoBehaviour
 {
-    protected static readonly Color PickUpHighlightColor = new Color(0.5f, 0.9f, 0.7f, 1f);
-    protected static readonly Color LinkHighlightColor = new Color(0.34f, 0.81f, 1f, 1f);
+    public static readonly Color PickUpHighlightColor = new Color(0.5f, 0.9f, 0.7f, 1f);
+    public static readonly Color LinkHighlightColor = new Color(0.34f, 0.81f, 1f, 1f);
 
     protected SpriteRenderer sprite;
 
@@ -91,7 +91,11 @@ public class Object : MonoBehaviour
         slot = transform.position;
         originalZ = slot.z;
 
-        sprite.sortingLayerID = SortingLayer.layers[0].id;
+        foreach(SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
+        {
+            renderer.sortingLayerID = SortingLayer.layers[0].id;
+        }
+        
         DisableHighlight();
     }
 
@@ -101,7 +105,10 @@ public class Object : MonoBehaviour
         transform.position = slot;
         overlappingObject = null;
 
-        sprite.sortingLayerID = SortingLayer.layers[0].id;
+        foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
+        {
+            renderer.sortingLayerID = SortingLayer.layers[0].id;
+        }
     }
 
     private void OnMouseDrag()
@@ -118,7 +125,11 @@ public class Object : MonoBehaviour
         if(canPickup)
         {
             state = ObjectState.PickedUp;
-            sprite.sortingLayerID = SortingLayer.layers[1].id;
+
+            foreach (SpriteRenderer renderer in GetComponentsInChildren<SpriteRenderer>())
+            {
+                renderer.sortingLayerID = SortingLayer.layers[1].id;
+            }
         }
     }
 
