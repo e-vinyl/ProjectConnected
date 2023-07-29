@@ -38,13 +38,16 @@ public class Object : MonoBehaviour
     protected string interactiveTag;
 
     [SerializeField]
-    Vector2 interactPivot;
+    protected Vector2 interactPivot;
 
     [SerializeField]
     protected List<TaggableEvents> interactionEvents;
 
     [SerializeField]
     protected List<TaggableEvents> linkEvents;
+
+    [SerializeField]
+    private bool canPickup = true;
 
     public ObjectState State
     {
@@ -104,8 +107,11 @@ public class Object : MonoBehaviour
 
     private void OnMouseDown()
     {
-        state = ObjectState.PickedUp;
-        sprite.sortingLayerID = SortingLayer.layers[1].id;
+        if(canPickup)
+        {
+            state = ObjectState.PickedUp;
+            sprite.sortingLayerID = SortingLayer.layers[1].id;
+        }
     }
 
     private void OnMouseUp()
