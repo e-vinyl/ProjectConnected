@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+enum CursorState
+{
+    None,
+    Pickup,
+    Link
+}
+
 [RequireComponent(typeof(LineRenderer))]
 public class ConnectionDrawer : MonoBehaviour
 {
@@ -9,6 +16,9 @@ public class ConnectionDrawer : MonoBehaviour
 
     protected Object leftConnection;
     protected Object rightConnection;
+
+    [SerializeField]
+    protected Animator cursor;
 
     [SerializeField]
     protected AudioClip magic;
@@ -19,15 +29,19 @@ public class ConnectionDrawer : MonoBehaviour
         lineRenderer.enabled = false;
         lineRenderer.positionCount = 2;
         lineRenderer.startColor = lineRenderer.endColor = Object.LinkHighlightColor;
+
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(leftConnection != null)
-        {
-            Vector3 mouse2World = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mouse2World = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        cursor.transform.position = new Vector3(mouse2World.x, mouse2World.y, 0f);
+
+        if (leftConnection != null)
+        {
             lineRenderer.SetPosition(0, leftConnection.transform.position);
             lineRenderer.SetPosition(1, new Vector3(mouse2World.x, mouse2World.y, leftConnection.transform.position.z));
 
@@ -50,6 +64,7 @@ public class ConnectionDrawer : MonoBehaviour
         //Right Click Down
         if (Input.GetMouseButtonDown(1))
         {
+            cursor.SetInteger("Type", (int)CursorState.Link);
             leftConnection = GetObjectUnderMouse();
             if (leftConnection != null)
             {
@@ -71,6 +86,8 @@ public class ConnectionDrawer : MonoBehaviour
             {
                 Reset();
             }
+
+            cursor.SetInteger("Type", (int)CursorState.None);
         }
     }
 

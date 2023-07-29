@@ -44,3 +44,6 @@ TagManager:
   - name: Pickup
     uniqueID: 476863769
     locked: 0
+  - name: Cursor
+    uniqueID: 3630218347
+    locked: 0
