@@ -15,6 +15,7 @@ public class ConnectionDrawer : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
         lineRenderer.positionCount = 2;
+        lineRenderer.startColor = lineRenderer.endColor = Object.LinkHighlightColor;
     }
 
     // Update is called once per frame
