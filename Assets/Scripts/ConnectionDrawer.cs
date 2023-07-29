@@ -8,6 +8,7 @@ public class ConnectionDrawer : MonoBehaviour
     protected LineRenderer lineRenderer;
 
     protected Object leftConnection;
+    protected Object rightConnection;
 
     private void Start()
     {
@@ -25,29 +26,42 @@ public class ConnectionDrawer : MonoBehaviour
 
             lineRenderer.SetPosition(0, leftConnection.transform.position);
             lineRenderer.SetPosition(1, new Vector3(mouse2World.x, mouse2World.y, leftConnection.transform.position.z));
-        }
 
-        //Right Click
+            Object hoveredObject = GetObjectUnderMouse();
+            if(hoveredObject != null)
+            {
+                if(rightConnection == null && hoveredObject != leftConnection)
+                {
+                    rightConnection = hoveredObject;
+                    rightConnection.EnableHighlight(true);
+                }
+            }
+            else if(rightConnection != null)
+            {
+                rightConnection.DisableHighlight();
+                rightConnection = null;
+            }
+        }
+   
+
+        //Right Click Down
         if (Input.GetMouseButtonDown(1))
         {
-            Collider2D hitCollider = GetColliderUnderMouse();
-
-            if (hitCollider != null)
+            leftConnection = GetObjectUnderMouse();
+            Debug.Log(leftConnection);
+            if (leftConnection != null)
             {
                 lineRenderer.enabled = true;
-                leftConnection = hitCollider.GetComponent<Object>();
+                leftConnection.EnableHighlight(true);
             }
-
         }
+        //Right Click Up
         else if(Input.GetMouseButtonUp(1))
         {
-            Collider2D hitCollider = GetColliderUnderMouse();
-
-            if(hitCollider != null)
+            if(rightConnection != null)
             {
-                Object rightConnection = hitCollider.GetComponent<Object>();
                 leftConnection.Link(rightConnection);
-                
+                rightConnection.DisableHighlight();
                 Reset();
             }
             else
@@ -59,16 +73,21 @@ public class ConnectionDrawer : MonoBehaviour
 
     protected void Reset()
     {
+        leftConnection.DisableHighlight();
         leftConnection = null;
+
+        rightConnection.DisableHighlight();
+        rightConnection = null;
+
         lineRenderer.enabled = false;
     }
 
-    Collider2D GetColliderUnderMouse()
+    Object GetObjectUnderMouse()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
 
-        return hit.collider;
+        return hit.collider ? hit.collider.GetComponent<Object>() : null;
     }
 }

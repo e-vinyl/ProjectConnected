@@ -13,16 +13,6 @@ public enum ObjectState
     Interacting
 }
 
-public interface IInteractive : IEventSystemHandler
-{
-    void OnOverlap(IInteractive other);
-    void OnExitOverlap(IInteractive other);
-    void Interact(IInteractive other);
-    void Link(IInteractive other);
-
-    string getTag();
-}
-
 [Serializable]
 public class TaggableEvents
 {
@@ -33,7 +23,7 @@ public class TaggableEvents
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class Object : MonoBehaviour, IInteractive
+public class Object : MonoBehaviour
 {
     protected SpriteRenderer sprite;
 
@@ -42,7 +32,7 @@ public class Object : MonoBehaviour, IInteractive
 
     protected ObjectState state = ObjectState.None;
 
-    protected IInteractive overlappingObject;
+    protected Object overlappingObject;
 
     [SerializeField]
     protected string interactiveTag;
@@ -53,12 +43,32 @@ public class Object : MonoBehaviour, IInteractive
     [SerializeField]
     protected List<TaggableEvents> linkEvents;
 
+    public ObjectState State
+    {
+        get => state;
+    }
+
+    public string Tag
+    {
+        get => tag;
+    }
+
+    public bool CanInteract
+    {
+        get
+        {
+            return overlappingObject == null && state == ObjectState.PickedUp;
+        }
+    }
+
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
 
         slot = transform.position;
         originalZ = slot.z;
+
+        sprite.sortingLayerID = SortingLayer.layers[0].id;
     }
 
     private void ResetObject()
@@ -66,6 +76,8 @@ public class Object : MonoBehaviour, IInteractive
         state = ObjectState.None;
         transform.position = slot;
         overlappingObject = null;
+
+        sprite.sortingLayerID = SortingLayer.layers[0].id;
     }
 
     private void OnMouseDrag()
@@ -80,6 +92,7 @@ public class Object : MonoBehaviour, IInteractive
     private void OnMouseDown()
     {
         state = ObjectState.PickedUp;
+        sprite.sortingLayerID = SortingLayer.layers[1].id;
     }
 
     private void OnMouseUp()
@@ -95,33 +108,41 @@ public class Object : MonoBehaviour, IInteractive
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (state == ObjectState.None)
+        Object triggeredObject = collision.GetComponent<Object>();
+
+        if (triggeredObject != null &&
+            triggeredObject.CanInteract &&
+            state == ObjectState.None)
         {
-            ExecuteEvents.Execute<IInteractive>(collision.gameObject, null, (x, y) => x.OnOverlap(this));
-            sprite.color = Color.blue;
+            
+            triggeredObject.OnOverlap(this);
+            EnableHighlight();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (state == ObjectState.None)
+        Object triggeredObject = collision.GetComponent<Object>();
+
+        if (triggeredObject != null &&
+            state == ObjectState.None)
         {
-            ExecuteEvents.Execute<IInteractive>(collision.gameObject, null, (x, y) => x.OnExitOverlap(this));
-            sprite.color = Color.white;
+            triggeredObject.OnExitOverlap(this);
+            DisableHighlight();
         }
     }
 
-    public void OnOverlap(IInteractive other)
+    public void OnOverlap(Object other)
     {
-        if(overlappingObject != null)
+        if(overlappingObject == null)
         {
             overlappingObject = other;
         }
     }
 
-    public void OnExitOverlap(IInteractive other)
+    public void OnExitOverlap(Object other)
     {
         if (overlappingObject == other)
         {
@@ -129,9 +150,9 @@ public class Object : MonoBehaviour, IInteractive
         }
     }
 
-    public void Interact(IInteractive overlappingObject)
+    public void Interact(Object overlappingObject)
     {
-        TaggableEvents foundEvent = interactionEvents.Find((x) => x.tag == overlappingObject.getTag());
+        TaggableEvents foundEvent = interactionEvents.Find((x) => x.tag == overlappingObject.Tag);
 
         if(foundEvent != null)
         {
@@ -139,13 +160,18 @@ public class Object : MonoBehaviour, IInteractive
         }
     }
 
-    public string getTag()
-    {
-        return interactiveTag;
-    }
-
-    public void Link(IInteractive other)
+    public void Link(Object other)
     {
         Debug.Log("Linkin " + this + " with " + other);
+    }
+
+    public void EnableHighlight(bool magical = false)
+    {
+        sprite.color = magical ? Color.red : Color.blue;
+    }
+
+    public void DisableHighlight()
+    {
+        sprite.color = Color.white;
     }
 }
