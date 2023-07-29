@@ -42,13 +42,11 @@ public class ConnectionDrawer : MonoBehaviour
                 rightConnection = null;
             }
         }
-   
 
         //Right Click Down
         if (Input.GetMouseButtonDown(1))
         {
             leftConnection = GetObjectUnderMouse();
-            Debug.Log(leftConnection);
             if (leftConnection != null)
             {
                 lineRenderer.enabled = true;
@@ -60,7 +58,7 @@ public class ConnectionDrawer : MonoBehaviour
         {
             if(rightConnection != null)
             {
-                leftConnection.Link(rightConnection);
+                rightConnection.Link(leftConnection);
                 rightConnection.DisableHighlight();
                 Reset();
             }
