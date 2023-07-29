@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffaec691e44d20b428ab104a819d946f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedSound: {fileID: 8300000, guid: 45c6550192c708e458b7b28247b74012, type: 3}
   highlightRender: {fileID: 3501345896999406191}
   interactiveTag: Kettle
   interactPivot: {x: -30, y: 17}
