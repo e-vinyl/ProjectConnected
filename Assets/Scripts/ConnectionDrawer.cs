@@ -10,6 +10,9 @@ public class ConnectionDrawer : MonoBehaviour
     protected Object leftConnection;
     protected Object rightConnection;
 
+    [SerializeField]
+    protected AudioClip magic;
+
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -59,6 +62,7 @@ public class ConnectionDrawer : MonoBehaviour
         {
             if(rightConnection != null)
             {
+                UIAudio.Instance.PlayAudio(magic);
                 rightConnection.Link(leftConnection);
                 rightConnection.DisableHighlight();
                 Reset();

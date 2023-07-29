@@ -2,12 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class CoffeeCup : MonoBehaviour
 {
     
     protected bool hasSugar = false;
     protected bool hasCoffee = false;
     protected bool isSpinning = false;
+
+    [SerializeField]
+    protected AudioClip coffeePour;
+
+    [SerializeField]
+    protected AudioClip sugarPour;
+
+    [SerializeField]
+    protected AudioClip coffeeStir;
+
+    [SerializeField]
+    protected SpriteRenderer coffeeRenderer;
 
     public bool IsSpinning
     {
@@ -21,7 +35,8 @@ public class CoffeeCup : MonoBehaviour
     {
         if(!hasCoffee)
         {
-            Debug.Log("Cup has coffee");
+            UIAudio.Instance.PlayAudio(coffeePour);
+            coffeeRenderer.enabled = true;
             hasCoffee = true;
         }
     }

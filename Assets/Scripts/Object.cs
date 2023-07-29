@@ -39,6 +39,9 @@ public class Object : MonoBehaviour
     protected Object overlappingObject;
 
     [SerializeField]
+    protected AudioClip selectedSound;
+
+    [SerializeField]
     protected SpriteRenderer highlightRender;
 
     [SerializeField]
@@ -109,6 +112,11 @@ public class Object : MonoBehaviour
         {
             renderer.sortingLayerID = SortingLayer.layers[0].id;
         }
+    }
+
+    private void OnMouseEnter()
+    {
+        UIAudio.Instance.PlayAudio(selectedSound);
     }
 
     private void OnMouseDrag()
