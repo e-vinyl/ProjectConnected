@@ -6,18 +6,19 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 
+
+
 public enum ObjectState
 {
     None,
-    PickedUp,
-    Interacting
+    PickedUp
 }
 
 [Serializable]
 public class TaggableEvents
 {
     public string tag;
-    public UnityEvent interactiveEvent;
+    public UnityEvent<Object> interactiveEvent;
 }
 
 [RequireComponent(typeof(Collider2D))]
@@ -25,6 +26,9 @@ public class TaggableEvents
 [RequireComponent(typeof(Rigidbody2D))]
 public class Object : MonoBehaviour
 {
+    protected static readonly Color PickUpHighlightColor = new Color(0.5f, 0.9f, 0.7f, 1f);
+    protected static readonly Color LinkHighlightColor = new Color(0.34f, 0.81f, 1f, 1f);
+
     protected SpriteRenderer sprite;
 
     protected Vector3 slot;
@@ -33,6 +37,9 @@ public class Object : MonoBehaviour
     protected ObjectState state = ObjectState.None;
 
     protected Object overlappingObject;
+
+    [SerializeField]
+    protected SpriteRenderer highlightRender;
 
     [SerializeField]
     protected string interactiveTag;
@@ -85,6 +92,7 @@ public class Object : MonoBehaviour
         originalZ = slot.z;
 
         sprite.sortingLayerID = SortingLayer.layers[0].id;
+        DisableHighlight();
     }
 
     private void ResetObject()
@@ -120,6 +128,7 @@ public class Object : MonoBehaviour
         {
             Interact(overlappingObject);
             overlappingObject.Interact(this);
+            ResetObject();
         }
         else
         {
@@ -169,28 +178,34 @@ public class Object : MonoBehaviour
         }
     }
 
-    public void Interact(Object overlappingObject)
+    public void Interact(Object other)
     {
-        TaggableEvents foundEvent = interactionEvents.Find((x) => x.tag == overlappingObject.Tag);
+        TaggableEvents foundEvent = interactionEvents.Find((x) => x.tag == other.interactiveTag);
 
-        if(foundEvent != null)
+        if (foundEvent != null)
         {
-            foundEvent.interactiveEvent?.Invoke();
+            foundEvent.interactiveEvent?.Invoke(other);
         }
     }
 
     public void Link(Object other)
     {
-        Debug.Log("Linkin " + this + " with " + other);
+        TaggableEvents foundEvent = linkEvents.Find((x) => x.tag == other.interactiveTag);
+
+        if (foundEvent != null)
+        {
+            foundEvent.interactiveEvent?.Invoke(other);
+        }
     }
 
     public void EnableHighlight(bool magical = false)
     {
-        sprite.color = magical ? Color.red : Color.blue;
+        highlightRender.enabled = true;
+        highlightRender.color = magical ? LinkHighlightColor : PickUpHighlightColor;
     }
 
     public void DisableHighlight()
     {
-        sprite.color = Color.white;
+        highlightRender.enabled = false;
     }
 }
