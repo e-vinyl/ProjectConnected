@@ -123,8 +123,7 @@ public class Object : MonoBehaviour
     {
         if(state == ObjectState.PickedUp)
         {
-            Vector3 mouse2World = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = new Vector3(mouse2World.x - interactPivot.x, mouse2World.y - interactPivot.y, originalZ);
+            transform.position = new Vector3(UI.Instance.CursorPosition.x - interactPivot.x, UI.Instance.CursorPosition.y - interactPivot.y, originalZ);
         }
     }
 

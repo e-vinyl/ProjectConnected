@@ -34,7 +34,7 @@ public class UI : MonoBehaviour
 
     protected Object leftConnection;
     protected Object rightConnection;
-    
+
     protected CursorState cursorState;
 
     public CursorState CursorState
@@ -50,6 +50,16 @@ public class UI : MonoBehaviour
             cursor.SetInteger("Type", (int)cursorState);
         }
     }
+
+    public Vector3 CursorPosition
+    {
+        get
+        {
+            return cursor.transform.position;
+        }
+    }
+
+    protected SpriteRenderer cursorSpriteRenderer;
 
     [SerializeField]
     protected Animator cursor;
@@ -73,6 +83,9 @@ public class UI : MonoBehaviour
         lineRenderer.startColor = lineRenderer.endColor = Object.LinkHighlightColor;
 
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+        
+        cursorSpriteRenderer = cursor.GetComponent<SpriteRenderer>();
     }
 
     public void PlaySelectedSound()
@@ -89,9 +102,14 @@ public class UI : MonoBehaviour
     void Update()
     {
         Vector3 mouse2World = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
+        
+        //TODO Get a more final way to clamp to screen
+        mouse2World.x = Mathf.Clamp(mouse2World.x, -Camera.main.pixelWidth / 2f, Camera.main.pixelWidth / 2f - cursorSpriteRenderer.bounds.size.x);
+        mouse2World.y = Mathf.Clamp(mouse2World.y, -Camera.main.pixelHeight / 2f + cursorSpriteRenderer.bounds.size.y, Camera.main.pixelHeight / 2f);
+        
         cursor.transform.position = new Vector3(mouse2World.x, mouse2World.y, 0f);
 
+        //Render magic line
         if (leftConnection != null)
         {
             lineRenderer.SetPosition(0, leftConnection.transform.position);
