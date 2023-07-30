@@ -27,8 +27,11 @@ public class Body : MonoBehaviour
 
     public void OnTrashInteract(Object other)
     {
-        GetComponent<SpriteRenderer>().enabled = false;
-        GetComponent<Object>().enabled = false;
+        if (isSliced)
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<Object>().enabled = false;
+        }
     }
 
     public void OnBlenderLinked(Object other)
