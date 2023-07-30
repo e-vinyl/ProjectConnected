@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class Body : MonoBehaviour
 {
     protected bool isSliced = false;
+
+    protected Animator animator;
 
     public bool IsSliced
     {
@@ -14,10 +17,13 @@ public class Body : MonoBehaviour
         }
     }
 
+    public void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     public void OnTrashInteract(Object other)
     {
-        Debug.Log("Got rid of body");
-        //GetComponent<Collider2D>().enabled = false;
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Object>().enabled = false;
     }
@@ -32,9 +38,9 @@ public class Body : MonoBehaviour
 
         if (!isSliced)
         {
-            Debug.Log("Chopped body");
             isSliced = true;
             GetComponent<Object>().CanPickUp = true;
+            animator.SetTrigger("Bag");
         }
     }
 }

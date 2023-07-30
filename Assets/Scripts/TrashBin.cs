@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
+[RequireComponent(typeof(Animator))]
 public class TrashBin : MonoBehaviour
 {
+    protected Animator animator;
+
     protected bool hasTrash = true;
     protected bool hasBody = false;
 
@@ -17,12 +19,19 @@ public class TrashBin : MonoBehaviour
         }
     }
 
+    public void Start()
+    {
+        animator = GetComponent<Animator>();
+        animator.SetBool("HasTrash", true);
+    }
+
     public void TakeOutTrash()
     {
         if(hasTrash)
         {
-            Debug.Log("No trash");
+            Debug.Log("doing");
             hasTrash = false;
+            animator.SetBool("HasTrash", false);
         }
     }
 
@@ -33,7 +42,7 @@ public class TrashBin : MonoBehaviour
         if(body != null && body.IsSliced)
         {
             hasBody = true;
-            Debug.Log("Tash has body");
+            animator.SetBool("HasTrash", true);
         }
     }
 }
