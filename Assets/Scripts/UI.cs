@@ -121,7 +121,7 @@ public class UI : MonoBehaviour
                 if(rightConnection == null && hoveredObject != leftConnection)
                 {
                     rightConnection = hoveredObject;
-                    rightConnection.EnableHighlight(true);
+                    rightConnection.EnableHighlight(HighlightType.Link);
                 }
             }
             else if(rightConnection != null)
@@ -139,7 +139,7 @@ public class UI : MonoBehaviour
             if (leftConnection != null)
             {
                 lineRenderer.enabled = true;
-                leftConnection.EnableHighlight(true);
+                leftConnection.EnableHighlight(HighlightType.Link);
             }
         }
         //Right Click Up

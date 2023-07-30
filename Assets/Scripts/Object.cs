@@ -6,7 +6,12 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 
-
+public enum HighlightType
+{
+    Pickup,
+    Interact,
+    Link
+}
 
 public enum ObjectState
 {
@@ -26,8 +31,9 @@ public class TaggableEvents
 [RequireComponent(typeof(Rigidbody2D))]
 public class Object : MonoBehaviour
 {
-    public static readonly Color PickUpHighlightColor = new Color(0.5f, 0.9f, 0.7f, 1f);
+    public static readonly Color InteractHighlightColor = new Color(0.5f, 0.9f, 0.7f, 1f);
     public static readonly Color LinkHighlightColor = new Color(0.34f, 0.81f, 1f, 1f);
+    public static readonly Color PickupHighlightColor = new Color(0.88f, 0.42f, 0.34f);
 
     protected SpriteRenderer sprite;
 
@@ -115,7 +121,16 @@ public class Object : MonoBehaviour
     {
         if (UI.Instance.CursorState == CursorState.None)
         {
+            EnableHighlight(HighlightType.Pickup);
             UI.Instance.PlaySelectedSound();
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (UI.Instance.CursorState == CursorState.None)
+        {
+            DisableHighlight();
         }
     }
 
@@ -131,6 +146,7 @@ public class Object : MonoBehaviour
     {
         if(canPickup)
         {
+            DisableHighlight();
             UI.Instance.CursorState = CursorState.PickUp;
             state = ObjectState.PickedUp;
 
@@ -222,10 +238,21 @@ public class Object : MonoBehaviour
         return false;
     }
 
-    public void EnableHighlight(bool magical = false)
+    public void EnableHighlight(HighlightType hightlightType = HighlightType.Interact)
     {
         highlightRender.enabled = true;
-        highlightRender.color = magical ? LinkHighlightColor : PickUpHighlightColor;
+        switch(hightlightType)
+        {
+            case HighlightType.Interact:
+                highlightRender.color = InteractHighlightColor;
+                break;
+            case HighlightType.Link:
+                highlightRender.color = LinkHighlightColor;
+                break;
+            case HighlightType.Pickup:
+                highlightRender.color = PickupHighlightColor;
+                break;
+        }
     }
 
     public void DisableHighlight()
