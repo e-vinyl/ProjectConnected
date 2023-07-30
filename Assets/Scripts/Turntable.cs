@@ -36,7 +36,7 @@ public class Turntable : MonoBehaviour
         {
             source.pitch = pitchValue;
             animator.speed = pitchValue;
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
     }
 }
