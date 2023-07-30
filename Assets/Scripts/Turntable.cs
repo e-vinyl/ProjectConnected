@@ -12,13 +12,20 @@ public class Turntable : MonoBehaviour
 
     private void Start()
     {
+        UI.Instance.OnReady += OnLevelReady;
         source = GetComponent<AudioSource>();
-        source.pitch = 0.5f;
-
+        
         animator = GetComponent<Animator>();
-        animator.speed = 0.5f;
     }
 
+    public void OnLevelReady()
+    {
+        source.pitch = 0.5f;
+        source.Play();
+
+        animator.speed = 0.5f;
+        animator.enabled = true;
+    }
 
     public void OnCoffeeLinked(Object other)
     {

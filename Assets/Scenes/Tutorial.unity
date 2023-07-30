@@ -677,6 +677,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3180372178851407909, guid: 152a2bd44a683854fba6443e5a5a4d0d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3180372178851407909, guid: 152a2bd44a683854fba6443e5a5a4d0d, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3180372178851407909, guid: 152a2bd44a683854fba6443e5a5a4d0d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6960224685173404120, guid: 152a2bd44a683854fba6443e5a5a4d0d, type: 3}
       propertyPath: m_Name
       value: Wand

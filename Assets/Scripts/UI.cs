@@ -35,6 +35,10 @@ public class UI : MonoBehaviour
     protected Object leftConnection;
     protected Object rightConnection;
 
+    public delegate void ReadyEventHandler();
+
+    public event ReadyEventHandler OnReady;
+
     protected CursorState cursorState;
 
     public CursorState CursorState
@@ -86,6 +90,11 @@ public class UI : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         
         cursorSpriteRenderer = cursor.GetComponent<SpriteRenderer>();
+    }
+
+    public void FinishedAnimation()
+    {
+        OnReady?.Invoke();
     }
 
     public void PlaySelectedSound()
