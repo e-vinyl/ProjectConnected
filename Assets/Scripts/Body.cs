@@ -9,6 +9,9 @@ public class Body : MonoBehaviour
 
     protected Animator animator;
 
+    [SerializeField]
+    protected AudioClip grind;
+
     public bool IsSliced
     {
         get
@@ -41,6 +44,7 @@ public class Body : MonoBehaviour
             isSliced = true;
             GetComponent<Object>().CanPickUp = true;
             animator.SetTrigger("Bag");
+            UI.Instance.PlayAudio(grind);
         }
     }
 }

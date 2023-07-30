@@ -14,14 +14,9 @@ public class Computer : MonoBehaviour
     [SerializeField]
     protected AudioClip boot;
 
-    public void Cooldown()
-    {
-        if (!isCooledDown)
-        {
-            Debug.Log("Computer cooled down");
-            isCooledDown = true;
-        }
-    }
+    [SerializeField]
+    protected AudioClip freeze;
+
 
     private void Start()
     {
@@ -35,7 +30,6 @@ public class Computer : MonoBehaviour
 
         if (bin != null && !bin.HasTrash && !isEmpty)
         {
-            Debug.Log("Computer emptied Ram");
             isEmpty = true;
             FixBlender();
         }
@@ -45,9 +39,9 @@ public class Computer : MonoBehaviour
     {
         if (!isCooledDown)
         {
-            Debug.Log("Computer cooled down");
             isCooledDown = true;
             FixBlender();
+            UI.Instance.PlayAudio(freeze);
         }
     }
 

@@ -961,6 +961,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1537156815}
     m_Modifications:
+    - target: {fileID: 404164364154736682, guid: 57cb3ff663232ac478b4649157418d98, type: 3}
+      propertyPath: freeze
+      value: 
+      objectReference: {fileID: 8300000, guid: 9018fcc9666b5794c8e44d9b2dfbced6, type: 3}
     - target: {fileID: 3844609178334198579, guid: 57cb3ff663232ac478b4649157418d98, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -1623,6 +1627,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 5bb74ce5f3e09524d97c4ae06052511b, type: 3}
+    - target: {fileID: 8631620413609907225, guid: 1670bc76b0e9f234a8c7dcffc48301bb, type: 3}
+      propertyPath: grind
+      value: 
+      objectReference: {fileID: 8300000, guid: 9eeacea5d2cbc6a46859a76032311ccd, type: 3}
     - target: {fileID: 9130223026530966906, guid: 1670bc76b0e9f234a8c7dcffc48301bb, type: 3}
       propertyPath: m_Sprite
       value: 
