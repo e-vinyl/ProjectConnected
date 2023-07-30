@@ -11,6 +11,9 @@ public class TrashBin : MonoBehaviour
     protected bool hasTrash = true;
     protected bool hasBody = false;
 
+    [SerializeField]
+    protected AudioClip trash;
+
     public bool HasTrash
     {
         get
@@ -29,9 +32,9 @@ public class TrashBin : MonoBehaviour
     {
         if(hasTrash)
         {
-            Debug.Log("doing");
             hasTrash = false;
             animator.SetBool("HasTrash", false);
+            UI.Instance.PlayAudio(trash);
         }
     }
 
@@ -43,6 +46,14 @@ public class TrashBin : MonoBehaviour
         {
             hasBody = true;
             animator.SetBool("HasTrash", true);
+            StartCoroutine(BodyDisposed());
         }
+    }
+
+    IEnumerator BodyDisposed()
+    {
+        yield return new WaitForSeconds(1f);
+
+        UI.Instance.GameEnded();
     }
 }

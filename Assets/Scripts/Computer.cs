@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
+[RequireComponent(typeof(AudioSource))]
 public class Computer : MonoBehaviour
 {
     protected bool isEmpty = false;
     protected bool isCooledDown = false;
+
+    protected AudioSource source;
+
+    [SerializeField]
+    protected AudioClip boot;
 
     public void Cooldown()
     {
@@ -16,6 +21,12 @@ public class Computer : MonoBehaviour
             Debug.Log("Computer cooled down");
             isCooledDown = true;
         }
+    }
+
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+        source.Play();
     }
 
     public void OnTrashLinked(Object other)
@@ -40,11 +51,25 @@ public class Computer : MonoBehaviour
         }
     }
 
+    IEnumerator FixComputer()
+    {
+        for (float volValue = source.volume; volValue > 0f; volValue -= 0.1f)
+        {
+            source.volume = volValue;
+            yield return new WaitForEndOfFrame();
+        }
+
+        UI.Instance.PlayAudio(boot);
+        source.Stop();
+    }
+
     // TODO Temp
     public void FixBlender()
     {
         if(isCooledDown && isEmpty)
         {
+            StartCoroutine(FixComputer());
+            
             Blender blender = GameObject.FindObjectOfType<Blender>();
             if(blender != null)
             {

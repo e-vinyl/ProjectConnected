@@ -38,6 +38,8 @@ public class UI : MonoBehaviour
     public delegate void ReadyEventHandler();
 
     public event ReadyEventHandler OnReady;
+    public event ReadyEventHandler OnLevelEnded;
+    public event ReadyEventHandler OnGameEnded;
 
     protected CursorState cursorState;
 
@@ -90,11 +92,23 @@ public class UI : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         
         cursorSpriteRenderer = cursor.GetComponent<SpriteRenderer>();
+
+        Screen.SetResolution(240, 160, false);
     }
 
     public void FinishedAnimation()
     {
         OnReady?.Invoke();
+    }
+
+    public void LevelEnded()
+    {
+        OnLevelEnded?.Invoke();
+    }
+
+    public void GameEnded()
+    {
+        OnGameEnded?.Invoke();
     }
 
     public void PlaySelectedSound()
@@ -114,8 +128,8 @@ public class UI : MonoBehaviour
 
         //TODO Get a more final way to clamp to screen
         
-        //mouse2World.x = Mathf.Clamp(mouse2World.x, -Camera.main.pixelWidth / 2f, Camera.main.pixelWidth / 2f - cursorSpriteRenderer.bounds.size.x);
-        //mouse2World.y = Mathf.Clamp(mouse2World.y, -Camera.main.pixelHeight / 2f + cursorSpriteRenderer.bounds.size.y, Camera.main.pixelHeight / 2f);
+        mouse2World.x = Mathf.Clamp(mouse2World.x, Camera.main.transform.position.x - Camera.main.pixelWidth / 2f, Camera.main.transform.position.x + Camera.main.pixelWidth / 2f - cursorSpriteRenderer.bounds.size.x);
+        mouse2World.y = Mathf.Clamp(mouse2World.y, Camera.main.transform.position.y - Camera.main.pixelHeight / 2f + cursorSpriteRenderer.bounds.size.y, Camera.main.transform.position.y + Camera.main.pixelHeight / 2f);
         
         cursor.transform.position = new Vector3(mouse2World.x, mouse2World.y, 0f);
 
