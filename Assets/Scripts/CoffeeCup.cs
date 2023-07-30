@@ -16,7 +16,10 @@ public class CoffeeCup : MonoBehaviour
 
     [SerializeField]
     protected AudioClip sugarPour;
-    
+
+    [SerializeField]
+    protected AudioClip sugarStir;
+
     [SerializeField]
     protected AudioClip sugarPourInCoffee;
 
@@ -28,6 +31,9 @@ public class CoffeeCup : MonoBehaviour
 
     [SerializeField]
     protected GameObject sugar;
+
+    [SerializeField]
+    protected GameObject spoon;
 
     public bool IsSpinning
     {
@@ -58,6 +64,8 @@ public class CoffeeCup : MonoBehaviour
         {
             sugar.GetComponent<SpriteRenderer>().enabled = true;
 
+            coffee.GetComponent<Animator>().SetInteger("Type", 1);
+
             if (hasCoffee)
             {
                 sugar.GetComponent<Animator>().SetInteger("Type", 1);
@@ -76,8 +84,20 @@ public class CoffeeCup : MonoBehaviour
     {
         UI.Instance.PlayAudio(coffeeStir);
 
+        spoon.GetComponent<Animator>().SetTrigger("Stir");
+
+        if(hasCoffee)
+        {
+            coffee.GetComponent<Animator>().SetTrigger("Stir");
+        }
+        else if(hasSugar)
+        {
+            UI.Instance.PlayAudio(sugarStir);
+        }
+
         if (hasSugar && hasCoffee && !isSpinning)
-        {    
+        {
+            sugar.GetComponent<Animator>().SetInteger("Type", 2);
             isSpinning = true;
         }
     }
