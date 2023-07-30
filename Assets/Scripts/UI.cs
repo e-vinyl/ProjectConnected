@@ -131,8 +131,8 @@ public class UI : MonoBehaviour
             }
         }
 
-        //Right Click Down
-        if (Input.GetMouseButtonDown(1))
+        //Right Click Held 
+        if (leftConnection == null && Input.GetMouseButton(1))
         {
             CursorState = CursorState.Link;
             leftConnection = GetObjectUnderMouse();
