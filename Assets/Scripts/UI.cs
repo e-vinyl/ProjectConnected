@@ -111,10 +111,11 @@ public class UI : MonoBehaviour
     void Update()
     {
         Vector3 mouse2World = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        
+
         //TODO Get a more final way to clamp to screen
-        mouse2World.x = Mathf.Clamp(mouse2World.x, -Camera.main.pixelWidth / 2f, Camera.main.pixelWidth / 2f - cursorSpriteRenderer.bounds.size.x);
-        mouse2World.y = Mathf.Clamp(mouse2World.y, -Camera.main.pixelHeight / 2f + cursorSpriteRenderer.bounds.size.y, Camera.main.pixelHeight / 2f);
+        
+        //mouse2World.x = Mathf.Clamp(mouse2World.x, -Camera.main.pixelWidth / 2f, Camera.main.pixelWidth / 2f - cursorSpriteRenderer.bounds.size.x);
+        //mouse2World.y = Mathf.Clamp(mouse2World.y, -Camera.main.pixelHeight / 2f + cursorSpriteRenderer.bounds.size.y, Camera.main.pixelHeight / 2f);
         
         cursor.transform.position = new Vector3(mouse2World.x, mouse2World.y, 0f);
 
@@ -196,6 +197,15 @@ public class UI : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
 
-        return hit.collider ? hit.collider.GetComponent<Object>() : null;
+        if(hit.collider != null)
+        {
+            Object obj = hit.collider.GetComponent<Object>();
+            if(obj.enabled)
+            {
+                return obj;
+            }
+        }
+
+        return null;
     }
 }

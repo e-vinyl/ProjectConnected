@@ -62,6 +62,14 @@ public class Object : MonoBehaviour
     [SerializeField]
     private bool canPickup = true;
 
+    public bool CanPickUp
+    {
+        set
+        {
+            canPickup = value;
+        }
+    }
+
     public ObjectState State
     {
         get => state;
@@ -263,7 +271,6 @@ public class Object : MonoBehaviour
     public bool Link(Object other)
     {
         TaggableEvents foundEvent = linkEvents.Find((x) => x.tag == other.interactiveTag);
-
         if (foundEvent != null)
         {
             foundEvent.interactiveEvent?.Invoke(other);
