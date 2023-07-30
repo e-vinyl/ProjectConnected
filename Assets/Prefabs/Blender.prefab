@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: c8f8a2ba7c0fb084bb2ae1aae8a8500d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5b34c14057bbe8740a734882aed90464, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -153,18 +153,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 4.428711, y: 2.6912198}
+  m_Offset: {x: -1.6915131, y: -0.043347836}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 45, y: 24}
+    oldSize: {x: 24, y: 30}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 33.099335, y: 19.246075}
+  m_Size: {x: 11, y: 23}
   m_EdgeRadius: 0
 --- !u!212 &8453369864116171499
 SpriteRenderer:
@@ -207,7 +207,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7984d820b84761c418ca7f67ff50cd55, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3938047475842734b9e30258e474ae61, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightRender: {fileID: 3121103247070587930}
   interactiveTag: Blender
-  interactPivot: {x: 3.59, y: 0.39}
+  interactPivot: {x: 6, y: 6}
   interactionEvents: []
   linkEvents: []
   canPickup: 1

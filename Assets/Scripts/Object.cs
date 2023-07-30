@@ -121,6 +121,7 @@ public class Object : MonoBehaviour
     private void OnLevelReady()
     {
         enabled = true;
+        UI.Instance.OnReady -= OnLevelReady;
     }
 
     private void ResetObject()

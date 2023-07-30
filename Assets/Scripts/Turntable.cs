@@ -30,6 +30,8 @@ public class Turntable : MonoBehaviour
 
         animator.speed = 0.5f;
         animator.enabled = true;
+
+        UI.Instance.OnReady -= OnLevelReady;
     }
 
     public void OnCoffeeLinked(Object other)
@@ -50,5 +52,9 @@ public class Turntable : MonoBehaviour
             animator.speed = pitchValue;
             yield return new WaitForEndOfFrame();
         }
+
+        yield return new WaitForSeconds(1f);
+
+        UI.Instance.LevelEnded();
     }
 }
