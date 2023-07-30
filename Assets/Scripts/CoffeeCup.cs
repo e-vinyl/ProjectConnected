@@ -55,9 +55,10 @@ public class CoffeeCup : MonoBehaviour
 
     public void OnSpoonInteract(Object other)
     {
+        UI.Instance.PlayAudio(coffeeStir);
+
         if (hasSugar && hasCoffee && !isSpinning)
-        {
-            UI.Instance.PlayAudio(coffeeStir);
+        {    
             isSpinning = true;
         }
     }
