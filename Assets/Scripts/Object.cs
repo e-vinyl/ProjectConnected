@@ -90,6 +90,11 @@ public class Object : MonoBehaviour
         Gizmos.DrawWireSphere(gizmoLocation, 5);
     }
 
+    private void Awake()
+    {
+        UI.Instance.OnReady += OnLevelReady;
+    }
+
     private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -103,6 +108,11 @@ public class Object : MonoBehaviour
         }
         
         DisableHighlight();
+    }
+
+    private void OnLevelReady()
+    {
+        enabled = true;
     }
 
     private void ResetObject()
@@ -119,6 +129,11 @@ public class Object : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        if(!enabled)
+        {
+            return;
+        }
+
         if (UI.Instance.CursorState == CursorState.None)
         {
             EnableHighlight(HighlightType.Pickup);
@@ -128,6 +143,11 @@ public class Object : MonoBehaviour
 
     private void OnMouseExit()
     {
+        if (!enabled)
+        {
+            return;
+        }
+
         if (UI.Instance.CursorState == CursorState.None)
         {
             DisableHighlight();
@@ -136,7 +156,12 @@ public class Object : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if(state == ObjectState.PickedUp)
+        if (!enabled)
+        {
+            return;
+        }
+
+        if (state == ObjectState.PickedUp)
         {
             transform.position = new Vector3(UI.Instance.CursorPosition.x - interactPivot.x, UI.Instance.CursorPosition.y - interactPivot.y, originalZ);
         }
@@ -144,7 +169,12 @@ public class Object : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if(canPickup)
+        if (!enabled)
+        {
+            return;
+        }
+
+        if (canPickup)
         {
             DisableHighlight();
             UI.Instance.CursorState = CursorState.PickUp;
@@ -159,7 +189,12 @@ public class Object : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if(overlappingObject != null)
+        if (!enabled)
+        {
+            return;
+        }
+
+        if (overlappingObject != null)
         {
             Interact(overlappingObject);
             overlappingObject.Interact(this);
