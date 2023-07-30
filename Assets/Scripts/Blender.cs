@@ -16,7 +16,6 @@ public class Blender : MonoBehaviour
 
     public void FixWiring()
     {
-        Debug.Log("fixed blender");
         isSpinning = true;
     }
 

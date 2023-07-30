@@ -46,7 +46,7 @@ public class Turntable : MonoBehaviour
 
     IEnumerator FixTurntable()
     {
-        for (float pitchValue = source.pitch; pitchValue < 1f; pitchValue += 0.001f)
+        for (float pitchValue = source.pitch; pitchValue < 1f; pitchValue += 0.05f)
         {
             source.pitch = pitchValue;
             animator.speed = pitchValue;
