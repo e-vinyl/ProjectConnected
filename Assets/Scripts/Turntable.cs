@@ -10,9 +10,14 @@ public class Turntable : MonoBehaviour
     protected AudioSource source;
     protected Animator animator;
 
-    private void Start()
+    private void Awake()
     {
         UI.Instance.OnReady += OnLevelReady;
+    }
+
+    private void Start()
+    {
+        
         source = GetComponent<AudioSource>();
         
         animator = GetComponent<Animator>();
