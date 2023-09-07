@@ -35,5 +35,11 @@ public class GameSettings : ScriptableObject
     private Color pickupHighlightColor = new Color(0.88f, 0.42f, 0.34f);
 
     [SerializeField]
-    Vector2Int resolution = new Vector2Int(240, 160);
+    private Vector2Int resolution = new Vector2Int(240, 160);
+
+    [SerializeField]
+    private List<string> levels;
+
+    [SerializeField, MinAttribute(0)]
+    private int startingLevel;
 }

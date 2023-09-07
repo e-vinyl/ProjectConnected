@@ -77,6 +77,8 @@ public class UI : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         Screen.SetResolution(settings.Resolution.x, settings.Resolution.y, false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;

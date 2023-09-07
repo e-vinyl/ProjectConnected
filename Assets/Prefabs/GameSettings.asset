@@ -16,3 +16,6 @@ MonoBehaviour:
   linkHighlightColor: {r: 0.34, g: 0.81, b: 1, a: 1}
   pickupHighlightColor: {r: 0.88, g: 0.42, b: 0.34, a: 1}
   resolution: {x: 240, y: 160}
+  levels:
+  - Level1
+  - Level2
