@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
+[RequireComponent(typeof(Object))]
 public class CoffeeCup : MonoBehaviour
 {
     
     protected bool hasSugar = false;
     protected bool hasCoffee = false;
     protected bool isSpinning = false;
+
+    private Object objectBody;
 
     [SerializeField]
     protected AudioClip coffeePour;
@@ -31,6 +33,11 @@ public class CoffeeCup : MonoBehaviour
         get => isSpinning;
     }
 
+    private void Awake()
+    {
+        objectBody = GetComponent<Object>();
+    }
+
     public void OnKettleInteract(Object other)
     {
         if(!hasCoffee)
@@ -38,6 +45,8 @@ public class CoffeeCup : MonoBehaviour
             UI.Instance.PlayAudio(coffeePour);
 
             MessageBroadcaster.Instance.BroadcastEvent("OnCoffeePoured");
+
+            objectBody.CanPickUp = false;
 
             hasCoffee = true;
 
@@ -53,6 +62,8 @@ public class CoffeeCup : MonoBehaviour
         if (!hasSugar)
         {
             MessageBroadcaster.Instance.BroadcastEvent("OnSugarAdded");
+
+            objectBody.CanPickUp = false;
 
             if (hasCoffee)
             {
