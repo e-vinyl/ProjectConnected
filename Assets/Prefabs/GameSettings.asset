@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5df5ef8b0892fc140a892237799947de, type: 3}
+  m_Name: GameSettings
+  m_EditorClassIdentifier: 
+  interactHighlightColor: {r: 0.5, g: 0.9, b: 0.7, a: 1}
+  linkHighlightColor: {r: 0.34, g: 0.81, b: 1, a: 1}
+  pickupHighlightColor: {r: 0.88, g: 0.42, b: 0.34, a: 1}
+  resolution: {x: 240, y: 160}

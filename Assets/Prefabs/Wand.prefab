@@ -139,7 +139,7 @@ Transform:
   m_Children:
   - {fileID: 2106487242326232769}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &1635876528886654424
 LineRenderer:
@@ -238,7 +238,7 @@ LineRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 1
-    textureScale: {x: 1, y: 1}
+    textureScale: {x: 0.01, y: 1}
     shadowBias: 0
     generateLightingData: 0
   m_MaskInteraction: 0
@@ -261,6 +261,7 @@ MonoBehaviour:
   magic: {fileID: 8300000, guid: 663c587245c83984896d0774f1304782, type: 3}
   magicWrong: {fileID: 8300000, guid: 96fdab07f6003db4baa4b9b4d68e20ae, type: 3}
   selectedSound: {fileID: 8300000, guid: 45c6550192c708e458b7b28247b74012, type: 3}
+  settings: {fileID: 11400000, guid: 600ed5422ddcba443bf674b5e438e1d3, type: 2}
 --- !u!82 &3851411431053239743
 AudioSource:
   m_ObjectHideFlags: 0

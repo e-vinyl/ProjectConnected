@@ -31,10 +31,6 @@ public class TaggableEvents
 [RequireComponent(typeof(Rigidbody2D))]
 public class Object : MonoBehaviour
 {
-    public static readonly Color InteractHighlightColor = new Color(0.5f, 0.9f, 0.7f, 1f);
-    public static readonly Color LinkHighlightColor = new Color(0.34f, 0.81f, 1f, 1f);
-    public static readonly Color PickupHighlightColor = new Color(0.88f, 0.42f, 0.34f);
-
     protected SpriteRenderer sprite;
 
     protected Vector3 slot;
@@ -287,13 +283,13 @@ public class Object : MonoBehaviour
         switch(hightlightType)
         {
             case HighlightType.Interact:
-                highlightRender.color = InteractHighlightColor;
+                highlightRender.color = UI.Instance.Settings.InteractHighlightColor;
                 break;
             case HighlightType.Link:
-                highlightRender.color = LinkHighlightColor;
+                highlightRender.color = UI.Instance.Settings.LinkHighlightColor;
                 break;
             case HighlightType.Pickup:
-                highlightRender.color = PickupHighlightColor;
+                highlightRender.color = UI.Instance.Settings.PickupHighlightColor;
                 break;
         }
     }

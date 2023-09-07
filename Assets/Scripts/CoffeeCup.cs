@@ -37,10 +37,7 @@ public class CoffeeCup : MonoBehaviour
 
     public bool IsSpinning
     {
-        get
-        {
-            return isSpinning;
-        }
+        get => isSpinning;
     }
 
     public void OnKettleInteract(Object other)

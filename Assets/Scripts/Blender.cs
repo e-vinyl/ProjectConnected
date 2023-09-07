@@ -8,10 +8,7 @@ public class Blender : MonoBehaviour
 
     public bool IsSpinning
     {
-        get
-        {
-            return isSpinning;
-        }
+        get => isSpinning;
     }
 
     public void FixWiring()

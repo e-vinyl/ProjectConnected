@@ -14,10 +14,7 @@ public class Body : MonoBehaviour
 
     public bool IsSliced
     {
-        get
-        {
-            return isSliced;
-        }
+        get => isSliced;
     }
 
     public void Start()

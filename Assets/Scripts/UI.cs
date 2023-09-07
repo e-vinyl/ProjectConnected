@@ -45,10 +45,7 @@ public class UI : MonoBehaviour
 
     public CursorState CursorState
     {
-        get
-        {
-            return cursorState;
-        }
+        get => cursorState;
 
         set
         {
@@ -59,10 +56,12 @@ public class UI : MonoBehaviour
 
     public Vector3 CursorPosition
     {
-        get
-        {
-            return cursor.transform.position;
-        }
+        get => cursor.transform.position;
+    }
+
+    public GameSettings Settings
+    {
+        get => settings;
     }
 
     protected SpriteRenderer cursorSpriteRenderer;
@@ -79,6 +78,9 @@ public class UI : MonoBehaviour
     [SerializeField]
     protected AudioClip selectedSound;
 
+    [SerializeField]
+    protected GameSettings settings;
+
     private void Start()
     {
         source = GetComponent<AudioSource>();
@@ -86,14 +88,14 @@ public class UI : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
         lineRenderer.positionCount = 2;
-        lineRenderer.startColor = lineRenderer.endColor = Object.LinkHighlightColor;
+        lineRenderer.startColor = lineRenderer.endColor = settings.LinkHighlightColor;
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
         
         cursorSpriteRenderer = cursor.GetComponent<SpriteRenderer>();
 
-        Screen.SetResolution(240, 160, false);
+        Screen.SetResolution(settings.Resolution.x, settings.Resolution.y, false);
     }
 
     public void FinishedAnimation()
