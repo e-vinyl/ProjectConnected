@@ -26,15 +26,6 @@ public class CoffeeCup : MonoBehaviour
     [SerializeField]
     protected AudioClip coffeeStir;
 
-    [SerializeField]
-    protected GameObject coffee;
-
-    [SerializeField]
-    protected GameObject sugar;
-
-    [SerializeField]
-    protected GameObject spoon;
-
     public bool IsSpinning
     {
         get => isSpinning;
@@ -45,12 +36,14 @@ public class CoffeeCup : MonoBehaviour
         if(!hasCoffee)
         {
             UI.Instance.PlayAudio(coffeePour);
-            coffee.GetComponent<SpriteRenderer>().enabled = true;
+
+            MessageBroadcaster.Instance.BroadcastEvent("OnCoffeePoured");
+
             hasCoffee = true;
 
             if(hasSugar)
             {
-                sugar.GetComponent<Animator>().SetInteger("Type", 1);
+                MessageBroadcaster.Instance.BroadcastEvent("OnCoffeePouredOnSugar");
             }
         }
     }
@@ -59,13 +52,11 @@ public class CoffeeCup : MonoBehaviour
     {
         if (!hasSugar)
         {
-            sugar.GetComponent<SpriteRenderer>().enabled = true;
-
-            coffee.GetComponent<Animator>().SetInteger("Type", 1);
+            MessageBroadcaster.Instance.BroadcastEvent("OnSugarAdded");
 
             if (hasCoffee)
             {
-                sugar.GetComponent<Animator>().SetInteger("Type", 1);
+                MessageBroadcaster.Instance.BroadcastEvent("OnSugarPouredOnCoffee");
                 UI.Instance.PlayAudio(sugarPourInCoffee);
             }
             else
@@ -81,11 +72,11 @@ public class CoffeeCup : MonoBehaviour
     {
         UI.Instance.PlayAudio(coffeeStir);
 
-        spoon.GetComponent<Animator>().SetTrigger("Stir");
+        MessageBroadcaster.Instance.BroadcastEvent("OnStirred");
 
-        if(hasCoffee)
+        if (hasCoffee)
         {
-            coffee.GetComponent<Animator>().SetTrigger("Stir");
+            MessageBroadcaster.Instance.BroadcastEvent("OnCoffeeStirred");
         }
         else if(hasSugar)
         {
@@ -94,7 +85,7 @@ public class CoffeeCup : MonoBehaviour
 
         if (hasSugar && hasCoffee && !isSpinning)
         {
-            sugar.GetComponent<Animator>().SetInteger("Type", 2);
+            MessageBroadcaster.Instance.BroadcastEvent("OnSugarDissolved");
             isSpinning = true;
         }
     }

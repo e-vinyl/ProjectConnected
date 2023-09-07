@@ -53,6 +53,8 @@ public class Turntable : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
+        source.pitch = 1f;
+
         yield return new WaitForSeconds(1f);
 
         MessageBroadcaster.Instance.BroadcastEvent("OnLevelEnded");
