@@ -7,8 +7,12 @@ public class AnimationMessageRelayer : MonoBehaviour
 {
     public GameObject level2;
 
+    protected Animator animator;
+
     private void Start()
     {
+        animator = GetComponent<Animator>();
+
         MessageBroadcaster.Instance.Subscribe("OnLevelEnded", OnLevelEnded);
         MessageBroadcaster.Instance.Subscribe("OnGameEnded", OnGameEnded);
     }
@@ -32,11 +36,11 @@ public class AnimationMessageRelayer : MonoBehaviour
 
     public void OnLevelEnded()
     {
-        GetComponent<Animator>().SetTrigger("Fade");
+        animator.SetTrigger("Fade");
     }
 
     public void OnGameEnded()
     {
-        GetComponent<Animator>().SetTrigger("End");
+        animator.SetTrigger("End");
     }
 }

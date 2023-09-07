@@ -8,6 +8,8 @@ public class Body : MonoBehaviour
     protected bool isSliced = false;
 
     protected Animator animator;
+    protected SpriteRenderer spriteRenderer;
+    protected Object objectBody;
 
     [SerializeField]
     protected AudioClip grind;
@@ -20,14 +22,18 @@ public class Body : MonoBehaviour
     public void Start()
     {
         animator = GetComponent<Animator>();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        objectBody = GetComponent<Object>();
     }
 
     public void OnTrashInteract(Object other)
     {
         if (isSliced)
         {
-            GetComponent<SpriteRenderer>().enabled = false;
-            GetComponent<Object>().enabled = false;
+            spriteRenderer.enabled = false;
+            objectBody.enabled = false;
         }
     }
 
@@ -42,7 +48,7 @@ public class Body : MonoBehaviour
         if (!isSliced)
         {
             isSliced = true;
-            GetComponent<Object>().CanPickUp = true;
+            objectBody.CanPickUp = true;
             animator.SetTrigger("Bag");
             UI.Instance.PlayAudio(grind);
         }
