@@ -9,13 +9,19 @@ public class AnimationMessageRelayer : MonoBehaviour
 
     private void Start()
     {
-        UI.Instance.OnLevelEnded += OnLevelEnded;
-        UI.Instance.OnGameEnded += OnGameEnded;
+        MessageBroadcaster.Instance.Subscribe("OnLevelEnded", OnLevelEnded);
+        MessageBroadcaster.Instance.Subscribe("OnGameEnded", OnGameEnded);
+    }
+
+    private void OnDestroy()
+    {
+        MessageBroadcaster.Instance.Unsubscribe("OnLevelEnded", OnLevelEnded);
+        MessageBroadcaster.Instance.Unsubscribe("OnGameEnded", OnGameEnded);
     }
 
     public void OnFadeReady()
     {
-        UI.Instance.FinishedAnimation();
+        MessageBroadcaster.Instance.BroadcastEvent("OnLevelReady");
     }
 
     public void OnLevelFaded()

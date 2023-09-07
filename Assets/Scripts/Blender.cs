@@ -11,7 +11,17 @@ public class Blender : MonoBehaviour
         get => isSpinning;
     }
 
-    public void FixWiring()
+    private void Awake()
+    {
+        MessageBroadcaster.Instance.Subscribe("OnWireFixed", OnWireFixed);
+    }
+
+    private void OnDestroy()
+    {
+        MessageBroadcaster.Instance.Unsubscribe("OnWireFixed", OnWireFixed);
+    }
+
+    public void OnWireFixed()
     {
         isSpinning = true;
     }

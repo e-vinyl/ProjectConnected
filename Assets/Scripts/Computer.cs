@@ -63,12 +63,8 @@ public class Computer : MonoBehaviour
         if(isCooledDown && isEmpty)
         {
             StartCoroutine(FixComputer());
-            
-            Blender blender = GameObject.FindObjectOfType<Blender>();
-            if(blender != null)
-            {
-                blender.FixWiring();
-            }
+
+            MessageBroadcaster.Instance.BroadcastEvent("OnWireFixed");
         }
     }
 }

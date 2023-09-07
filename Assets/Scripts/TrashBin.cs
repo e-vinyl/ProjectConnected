@@ -54,6 +54,6 @@ public class TrashBin : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        UI.Instance.GameEnded();
+        MessageBroadcaster.Instance.BroadcastEvent("OnGameEnded");
     }
 }

@@ -12,7 +12,7 @@ public class Turntable : MonoBehaviour
 
     private void Awake()
     {
-        UI.Instance.OnReady += OnLevelReady;
+        MessageBroadcaster.Instance.Subscribe("OnLevelReady", OnLevelReady);
     }
 
     private void Start()
@@ -31,7 +31,7 @@ public class Turntable : MonoBehaviour
         animator.speed = 0.5f;
         animator.enabled = true;
 
-        UI.Instance.OnReady -= OnLevelReady;
+        MessageBroadcaster.Instance.Unsubscribe("OnLevelReady", OnLevelReady);
     }
 
     public void OnCoffeeLinked(Object other)
@@ -55,6 +55,6 @@ public class Turntable : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        UI.Instance.LevelEnded();
+        MessageBroadcaster.Instance.BroadcastEvent("OnLevelEnded");
     }
 }

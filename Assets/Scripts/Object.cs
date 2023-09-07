@@ -96,7 +96,7 @@ public class Object : MonoBehaviour
 
     private void Awake()
     {
-        UI.Instance.OnReady += OnLevelReady;
+        MessageBroadcaster.Instance.Subscribe("OnLevelReady", OnLevelReady);
     }
 
     private void Start()
@@ -117,7 +117,7 @@ public class Object : MonoBehaviour
     private void OnLevelReady()
     {
         enabled = true;
-        UI.Instance.OnReady -= OnLevelReady;
+        MessageBroadcaster.Instance.Unsubscribe("OnLevelReady", OnLevelReady);
     }
 
     private void ResetObject()

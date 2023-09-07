@@ -35,12 +35,6 @@ public class UI : MonoBehaviour
     protected Object leftConnection;
     protected Object rightConnection;
 
-    public delegate void ReadyEventHandler();
-
-    public event ReadyEventHandler OnReady;
-    public event ReadyEventHandler OnLevelEnded;
-    public event ReadyEventHandler OnGameEnded;
-
     protected CursorState cursorState;
 
     public CursorState CursorState
@@ -96,21 +90,6 @@ public class UI : MonoBehaviour
         cursorSpriteRenderer = cursor.GetComponent<SpriteRenderer>();
 
         Screen.SetResolution(settings.Resolution.x, settings.Resolution.y, false);
-    }
-
-    public void FinishedAnimation()
-    {
-        OnReady?.Invoke();
-    }
-
-    public void LevelEnded()
-    {
-        OnLevelEnded?.Invoke();
-    }
-
-    public void GameEnded()
-    {
-        OnGameEnded?.Invoke();
     }
 
     public void PlaySelectedSound()
