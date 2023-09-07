@@ -16,10 +16,7 @@ public class TrashBin : MonoBehaviour
 
     public bool HasTrash
     {
-        get
-        {
-            return hasTrash;
-        }
+        get => hasTrash;
     }
 
     public void Start()

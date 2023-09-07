@@ -75,6 +75,13 @@ public class UI : MonoBehaviour
     [SerializeField]
     protected GameSettings settings;
 
+    private void Awake()
+    {
+        Screen.SetResolution(settings.Resolution.x, settings.Resolution.y, false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+    }
+
     private void Start()
     {
         source = GetComponent<AudioSource>();
@@ -84,12 +91,7 @@ public class UI : MonoBehaviour
         lineRenderer.positionCount = 2;
         lineRenderer.startColor = lineRenderer.endColor = settings.LinkHighlightColor;
 
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Confined;
-        
         cursorSpriteRenderer = cursor.GetComponent<SpriteRenderer>();
-
-        Screen.SetResolution(settings.Resolution.x, settings.Resolution.y, false);
     }
 
     public void PlaySelectedSound()
